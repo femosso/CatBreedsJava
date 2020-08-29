@@ -18,15 +18,9 @@
         android:orientation="horizontal">
 
         <TextView
-            android:text="@{viewModel.getCatBreedAt(position).imageUrl}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?attr/textAppearanceListItem" />
-
-        <TextView
-            android:text="@{viewModel.getCatBreedAt(position).text}"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:text="@{viewModel.getCatBreedAt(position).name}"
             android:textAppearance="?attr/textAppearanceListItem" />
     </LinearLayout>
 </layout>

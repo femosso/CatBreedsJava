@@ -10,4 +10,6 @@ public interface Repository {
 
     MutableLiveData<List<CatBreed>> getBreeds();
 
+    void fetchList();
+
 }

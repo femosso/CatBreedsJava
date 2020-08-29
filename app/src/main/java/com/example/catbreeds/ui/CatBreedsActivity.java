@@ -24,27 +24,30 @@ public class CatBreedsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cat_breeds);
-
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        toolbar.setTitle(getTitle());
-
-        setUpDataBinding();
+        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
+        initDataBinding();
+        initObservables();
     }
 
-    private void setUpDataBinding() {
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadList();
+    }
+
+    private void initDataBinding() {
         // add data binding in this activity to set up the adapter
         ActivityCatBreedsBinding activityBinding = DataBindingUtil.setContentView(this, R.layout.activity_cat_breeds);
         viewModel = new ViewModelProvider(this).get(CatBreedsViewModel.class);
         viewModel.init();
         activityBinding.setModel(viewModel);
-        setUpObservables();
     }
 
-    private void setUpObservables() {
+    private void initObservables() {
         viewModel.getCatBreeds().observe(this, new Observer<List<CatBreed>>() {
             @Override
             public void onChanged(List<CatBreed> catBreeds) {
+                viewModel.loading.set(View.GONE);
                 if (catBreeds.size() == 0) {
                     viewModel.showEmpty.set(View.VISIBLE);
                 } else {
@@ -60,5 +63,10 @@ public class CatBreedsActivity extends AppCompatActivity {
                 // if boolean -> show progress bar, else hide it
             }
         });
+    }
+
+    private void loadList() {
+        viewModel.loading.set(View.VISIBLE);
+        viewModel.fetchList();
     }
 }

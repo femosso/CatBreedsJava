@@ -43,14 +43,14 @@
                 app:setAdapter="@{model.getAdapter()}"
                 tools:listitem="@layout/view_cat_breed" />
 
-            <!--<androidx.core.widget.ContentLoadingProgressBar
+            <androidx.core.widget.ContentLoadingProgressBar
                 android:id="@+id/spinnerLoading"
                 style="?android:attr/progressBarStyleLarge"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:layout_gravity="center"
                 android:indeterminate="true"
-                android:visibility="@{model.loading}" />-->
+                android:visibility="@{model.loading}" />
 
             <TextView
                 android:layout_width="wrap_content"

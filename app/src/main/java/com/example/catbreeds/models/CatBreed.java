@@ -4,28 +4,18 @@ import androidx.databinding.BaseObservable;
 
 public class CatBreed extends BaseObservable {
 
-    private String imageUrl;
+    private String name;
 
-    private String text;
-
-    public CatBreed(String imageUrl, String text) {
-        this.imageUrl = imageUrl;
-        this.text = text;
+    public CatBreed(String name) {
+        this.name = name;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public String getName() {
+        return name;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
 }

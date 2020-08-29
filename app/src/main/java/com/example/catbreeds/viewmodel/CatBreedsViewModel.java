@@ -5,7 +5,7 @@ import android.view.View;
 import com.example.catbreeds.R;
 import com.example.catbreeds.ui.CatBreedsAdapter;
 import com.example.catbreeds.models.CatBreed;
-import com.example.catbreeds.repository.RemoteRepositoryImpl;
+import com.example.catbreeds.repository.remote.RemoteRepositoryImpl;
 import com.example.catbreeds.repository.Repository;
 
 import java.util.List;
@@ -21,6 +21,7 @@ public class CatBreedsViewModel extends ViewModel {
     private MutableLiveData<Boolean> mIsUpdating = new MutableLiveData<>();
     private Repository repo;
 
+    public ObservableInt loading;
     public ObservableInt showEmpty;
 
     public void init() {
@@ -28,6 +29,7 @@ public class CatBreedsViewModel extends ViewModel {
         this.repo = RemoteRepositoryImpl.getInstance();
         this.catBreeds = this.repo.getBreeds();
 
+        loading = new ObservableInt(View.GONE);
         showEmpty = new ObservableInt(View.GONE);
     }
 
@@ -53,5 +55,9 @@ public class CatBreedsViewModel extends ViewModel {
 
     public CatBreedsAdapter getAdapter() {
         return this.adapter;
+    }
+
+    public void fetchList() {
+        this.repo.fetchList();
     }
 }
