@@ -3,6 +3,7 @@ package com.example.catbreeds;
 import android.app.Activity;
 import android.os.Bundle;
 
+import com.example.catbreeds.ui.CatBreedsActivity;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 
 import androidx.fragment.app.Fragment;
@@ -16,7 +17,7 @@ import com.example.catbreeds.dummy.DummyContent;
 
 /**
  * A fragment representing a single Item detail screen.
- * This fragment is either contained in a {@link ItemListActivity}
+ * This fragment is either contained in a {@link CatBreedsActivity}
  * in two-pane mode (on tablets) or a {@link ItemDetailActivity}
  * on handsets.
  */

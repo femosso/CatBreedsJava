@@ -3,6 +3,7 @@ package com.example.catbreeds;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.example.catbreeds.ui.CatBreedsActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -19,7 +20,7 @@ import android.view.MenuItem;
  * An activity representing a single Item detail screen. This
  * activity is only used on narrow width devices. On tablet-size devices,
  * item details are presented side-by-side with a list of items
- * in a {@link ItemListActivity}.
+ * in a {@link CatBreedsActivity}.
  */
 public class ItemDetailActivity extends AppCompatActivity {
 
@@ -79,7 +80,7 @@ public class ItemDetailActivity extends AppCompatActivity {
             //
             // http://developer.android.com/design/patterns/navigation.html#up-vs-back
             //
-            navigateUpTo(new Intent(this, ItemListActivity.class));
+            navigateUpTo(new Intent(this, CatBreedsActivity.class));
 
             return true;
         }
