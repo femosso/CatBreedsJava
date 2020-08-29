@@ -33,7 +33,7 @@ public class CatBreedsActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        loadList();
+        refreshList();
     }
 
     private void initDataBinding() {
@@ -48,8 +48,8 @@ public class CatBreedsActivity extends AppCompatActivity {
         viewModel.getCatBreeds().observe(this, new Observer<List<CatBreed>>() {
             @Override
             public void onChanged(List<CatBreed> catBreeds) {
-                viewModel.loading.set(View.GONE);
-                if (catBreeds.size() == 0) {
+                viewModel.loading.set(false);
+                if (catBreeds == null || catBreeds.size() == 0) {
                     viewModel.showEmpty.set(View.VISIBLE);
                 } else {
                     viewModel.showEmpty.set(View.GONE);
@@ -61,13 +61,13 @@ public class CatBreedsActivity extends AppCompatActivity {
         viewModel.getSelected().observe(this, new Observer<CatBreed>() {
             @Override
             public void onChanged(CatBreed catBreed) {
-                Toast.makeText(CatBreedsActivity.this, "Selected: " + catBreed.getName(), Toast.LENGTH_LONG).show();
+                Toast.makeText(CatBreedsActivity.this, "Selected: " + catBreed.getName(), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    private void loadList() {
-        viewModel.loading.set(View.VISIBLE);
+    public void refreshList() {
+        viewModel.showEmpty.set(View.GONE);
         viewModel.fetchList();
     }
 }

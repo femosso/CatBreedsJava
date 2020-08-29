@@ -12,6 +12,7 @@ import com.example.catbreeds.ui.CatBreedsAdapter;
 import java.util.List;
 
 import androidx.databinding.ObservableArrayMap;
+import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableInt;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -24,7 +25,7 @@ public class CatBreedsViewModel extends ViewModel {
     private Repository repo;
 
     public ObservableArrayMap<String, String> images;
-    public ObservableInt loading;
+    public ObservableBoolean loading;
     public ObservableInt showEmpty;
 
     public void init() {
@@ -34,7 +35,7 @@ public class CatBreedsViewModel extends ViewModel {
         this.selected = new MutableLiveData<>();
 
         this.images = new ObservableArrayMap<>();
-        this.loading = new ObservableInt(View.GONE);
+        this.loading = new ObservableBoolean();
         this.showEmpty = new ObservableInt(View.GONE);
     }
 
@@ -63,6 +64,7 @@ public class CatBreedsViewModel extends ViewModel {
     }
 
     public void fetchList() {
+        this.loading.set(true);
         this.repo.fetchList();
     }
 

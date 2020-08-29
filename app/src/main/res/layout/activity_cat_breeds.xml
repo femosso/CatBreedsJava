@@ -30,33 +30,31 @@
 
         </com.google.android.material.appbar.AppBarLayout>
 
-        <FrameLayout
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            app:onRefreshListener="@{() -> viewModel.fetchList()}"
+            app:refreshing="@{viewModel.loading}">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/listOfBreeds"
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:setAdapter="@{viewModel.getAdapter()}"
-                tools:listitem="@layout/view_cat_breed" />
+                android:layout_height="match_parent">
 
-            <androidx.core.widget.ContentLoadingProgressBar
-                android:id="@+id/spinnerLoading"
-                style="?android:attr/progressBarStyleLarge"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_gravity="center"
-                android:indeterminate="true"
-                android:visibility="@{viewModel.loading}" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/listOfBreeds"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:setAdapter="@{viewModel.getAdapter()}"
+                    tools:listitem="@layout/view_cat_breed" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="No breeds were returned."
-                android:visibility="@{viewModel.showEmpty}" />
-        </FrameLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="No breeds were returned."
+                    android:visibility="@{viewModel.showEmpty}" />
+            </FrameLayout>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
     </LinearLayout>
 </layout>

@@ -52,7 +52,7 @@ public class RemoteRepositoryImpl implements Repository {
 
             @Override
             public void onFailure(Call<List<CatBreed>> call, Throwable t) {
-                Log.e("Test", t.getMessage(), t);
+                breeds.setValue(null);
             }
         };
 
@@ -74,7 +74,6 @@ public class RemoteRepositoryImpl implements Repository {
 
             @Override
             public void onFailure(Call<List<CatBreedImage>> call, Throwable t) {
-                Log.e("Test", t.getMessage(), t);
                 callback.onLoaded(null);
             }
         };
