@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -13,14 +15,44 @@
     </data>
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:clickable="true"
+        android:focusable="true"
+        android:onClick="@{() -> viewModel.onItemClick(position)}"
+        android:orientation="vertical">
 
-        <TextView
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{viewModel.getCatBreedAt(position).name}"
-            android:textAppearance="?attr/textAppearanceListItem" />
+            android:layout_gravity="center"
+            android:layout_margin="4dp"
+            app:cardElevation="3dp"
+            app:cardUseCompatPadding="true">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="150sp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_launcher_background"
+                    app:imageUrl="@{viewModel.images[viewModel.getCatBreedAt(position).id]}" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/transparentBlack"
+                    android:gravity="center"
+                    android:padding="15sp"
+                    android:text="@{viewModel.getCatBreedAt(position).name}"
+                    android:textColor="@color/white"
+                    tools:text="Breed" />
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
     </LinearLayout>
 </layout>

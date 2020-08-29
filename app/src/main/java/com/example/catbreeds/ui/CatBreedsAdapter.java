@@ -67,6 +67,8 @@ public class CatBreedsAdapter extends RecyclerView.Adapter<CatBreedsAdapter.Gene
         }
 
         void bind(CatBreedsViewModel viewModel, Integer position) {
+            viewModel.fetchCatBreedImageAt(position);
+
             this.binding.setVariable(BR.position, position);
             this.binding.setVariable(BR.viewModel, viewModel);
             this.binding.executePendingBindings();

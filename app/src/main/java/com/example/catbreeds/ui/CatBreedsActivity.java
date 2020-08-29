@@ -2,6 +2,7 @@ package com.example.catbreeds.ui;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.catbreeds.R;
 import com.example.catbreeds.databinding.ActivityCatBreedsBinding;
@@ -40,7 +41,7 @@ public class CatBreedsActivity extends AppCompatActivity {
         ActivityCatBreedsBinding activityBinding = DataBindingUtil.setContentView(this, R.layout.activity_cat_breeds);
         viewModel = new ViewModelProvider(this).get(CatBreedsViewModel.class);
         viewModel.init();
-        activityBinding.setModel(viewModel);
+        activityBinding.setViewModel(viewModel);
     }
 
     private void initObservables() {
@@ -57,10 +58,10 @@ public class CatBreedsActivity extends AppCompatActivity {
             }
         });
 
-        viewModel.getIsUpdating().observe(this, new Observer<Boolean>() {
+        viewModel.getSelected().observe(this, new Observer<CatBreed>() {
             @Override
-            public void onChanged(Boolean aBoolean) {
-                // if boolean -> show progress bar, else hide it
+            public void onChanged(CatBreed catBreed) {
+                Toast.makeText(CatBreedsActivity.this, "Selected: " + catBreed.getName(), Toast.LENGTH_LONG).show();
             }
         });
     }

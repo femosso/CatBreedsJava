@@ -6,7 +6,7 @@
     <data>
 
         <variable
-            name="model"
+            name="viewModel"
             type="com.example.catbreeds.viewmodel.CatBreedsViewModel" />
     </data>
 
@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".DogBreedsActivity">
+        tools:context=".ui.CatBreedsActivity">
 
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
@@ -36,11 +36,10 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/listOfBreeds"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:setAdapter="@{model.getAdapter()}"
+                app:setAdapter="@{viewModel.getAdapter()}"
                 tools:listitem="@layout/view_cat_breed" />
 
             <androidx.core.widget.ContentLoadingProgressBar
@@ -50,14 +49,14 @@
                 android:layout_height="48dp"
                 android:layout_gravity="center"
                 android:indeterminate="true"
-                android:visibility="@{model.loading}" />
+                android:visibility="@{viewModel.loading}" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="No breeds were returned."
-                android:visibility="@{model.showEmpty}" />
+                android:visibility="@{viewModel.showEmpty}" />
         </FrameLayout>
     </LinearLayout>
 </layout>
