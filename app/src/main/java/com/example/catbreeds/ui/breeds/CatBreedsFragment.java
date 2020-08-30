@@ -10,6 +10,7 @@ import com.example.catbreeds.databinding.FragmentCatBreedsBinding;
 import com.example.catbreeds.models.CatBreed;
 import com.example.catbreeds.viewmodel.CatBreedsViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -25,26 +26,23 @@ public class CatBreedsFragment extends Fragment {
 
     private CatBreedsViewModel viewModel;
 
+    private FragmentCatBreedsBinding binding;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        viewModel = new ViewModelProvider(requireActivity()).get(CatBreedsViewModel.class);
-        if (savedInstanceState == null) {
-            // TODO - check best practices to when to initialize view model
-            viewModel.init();
-        }
-
-        FragmentCatBreedsBinding binding =
-                DataBindingUtil.inflate(inflater, R.layout.fragment_cat_breeds, container, false);
-        binding.setViewModel(viewModel);
-
+        binding = DataBindingUtil.inflate(
+                inflater, R.layout.fragment_cat_breeds, container, false);
         return binding.getRoot();
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        viewModel = new ViewModelProvider(requireActivity()).get(CatBreedsViewModel.class);
+        viewModel.resetSelected();
+        binding.setViewModel(viewModel);
         initObservables();
     }
 
@@ -54,9 +52,16 @@ public class CatBreedsFragment extends Fragment {
         refreshList();
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        viewModel = null;
+        binding = null;
+    }
+
     public void refreshList() {
         viewModel.showEmpty.set(View.GONE);
-        viewModel.fetchList();
+        viewModel.fetchList(false);
     }
 
     private void initObservables() {
@@ -66,6 +71,7 @@ public class CatBreedsFragment extends Fragment {
                 viewModel.loading.set(false);
                 if (catBreeds == null || catBreeds.size() == 0) {
                     viewModel.showEmpty.set(View.VISIBLE);
+                    viewModel.clearCatBreedsInAdapter();
                 } else {
                     viewModel.showEmpty.set(View.GONE);
                     viewModel.setCatBreedsInAdapter(catBreeds);

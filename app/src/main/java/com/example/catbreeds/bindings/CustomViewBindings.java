@@ -14,7 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 public class CustomViewBindings {
 
     @BindingAdapter("setAdapter")
-    public static void bindRecyclerViewAdapter(RecyclerView recyclerView, RecyclerView.Adapter<?> adapter) {
+    public static void bindRecyclerViewAdapter(RecyclerView recyclerView,
+                                               RecyclerView.Adapter<?> adapter) {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(recyclerView.getContext(), 2));
         recyclerView.setAdapter(adapter);
@@ -24,7 +25,8 @@ public class CustomViewBindings {
     public static void bindUrlToCatBreedImageView(ImageView imageView, String imageUrl) {
         if (imageUrl != null) {
             // avoid old images appearing briefly before it's replaced with the current image
-            if (imageView.getTag(R.id.image_url) == null || !imageView.getTag(R.id.image_url).equals(imageUrl)) {
+            if (imageView.getTag(R.id.image_url) == null ||
+                    !imageView.getTag(R.id.image_url).equals(imageUrl)) {
                 imageView.setImageBitmap(null);
                 imageView.setTag(R.id.image_url, imageUrl);
                 Glide.with(imageView)

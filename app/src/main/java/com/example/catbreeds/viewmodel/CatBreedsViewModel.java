@@ -9,6 +9,7 @@ import com.example.catbreeds.repository.Repository;
 import com.example.catbreeds.repository.remote.retrofit.RetrofitRepositoryImpl;
 import com.example.catbreeds.ui.breeds.CatBreedsAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.databinding.ObservableArrayMap;
@@ -20,22 +21,23 @@ import androidx.lifecycle.ViewModel;
 public class CatBreedsViewModel extends ViewModel {
 
     private CatBreedsAdapter adapter;
+
+    private Repository repo;
+
     private MutableLiveData<List<CatBreed>> catBreeds;
     private MutableLiveData<CatBreed> selected;
-    private Repository repo;
 
     public ObservableArrayMap<String, String> images;
     public ObservableBoolean loading;
     public ObservableInt showEmpty;
 
-    public void init() {
-        this.adapter = new CatBreedsAdapter(R.layout.view_cat_breed, this);
-        this.repo = RetrofitRepositoryImpl.getInstance();
-        this.catBreeds = this.repo.getBreeds();
-        this.selected = new MutableLiveData<>();
-        this.images = new ObservableArrayMap<>();
-        this.loading = new ObservableBoolean();
-        this.showEmpty = new ObservableInt(View.GONE);
+    public CatBreedsViewModel() {
+        adapter = new CatBreedsAdapter(R.layout.view_cat_breed, this);
+        repo = RetrofitRepositoryImpl.getInstance();
+        catBreeds = repo.getBreeds();
+        images = new ObservableArrayMap<>();
+        loading = new ObservableBoolean();
+        showEmpty = new ObservableInt(View.GONE);
     }
 
     public MutableLiveData<List<CatBreed>> getCatBreeds() {
@@ -46,6 +48,10 @@ public class CatBreedsViewModel extends ViewModel {
         return selected;
     }
 
+    public void resetSelected() {
+        selected = new MutableLiveData<>();
+    }
+
     public CatBreed getCatBreedAt(Integer index) {
         if (catBreeds.getValue() != null && index != null && catBreeds.getValue().size() > index) {
             return catBreeds.getValue().get(index);
@@ -54,23 +60,31 @@ public class CatBreedsViewModel extends ViewModel {
     }
 
     public void setCatBreedsInAdapter(List<CatBreed> breeds) {
-        this.adapter.setCatBreeds(breeds);
-        this.adapter.notifyDataSetChanged();
+        adapter.setCatBreeds(breeds);
+        adapter.notifyDataSetChanged();
+    }
+
+    public void clearCatBreedsInAdapter() {
+        adapter.setCatBreeds(new ArrayList<CatBreed>());
+        adapter.notifyDataSetChanged();
     }
 
     public CatBreedsAdapter getAdapter() {
-        return this.adapter;
+        return adapter;
     }
 
-    public void fetchList() {
-        this.loading.set(true);
-        this.repo.fetchList();
+    public void fetchList(boolean force) {
+        if (force) {
+            invalidateImageCache();
+        }
+        loading.set(true);
+        repo.fetchList();
     }
 
     public void fetchCatBreedImageAt(Integer index) {
         final CatBreed catBreed = getCatBreedAt(index);
         if (catBreed != null && !images.containsKey(catBreed.getId())) {
-            this.repo.fetchImage(catBreed.getId(),
+            repo.fetchImage(catBreed.getId(),
                     new Repository.FetchImageCallback<CatBreedImage>() {
                         @Override
                         public void onLoaded(CatBreedImage data) {
@@ -85,5 +99,9 @@ public class CatBreedsViewModel extends ViewModel {
 
     public void onItemClick(Integer index) {
         selected.setValue(getCatBreedAt(index));
+    }
+
+    private void invalidateImageCache() {
+        images = new ObservableArrayMap<>();
     }
 }

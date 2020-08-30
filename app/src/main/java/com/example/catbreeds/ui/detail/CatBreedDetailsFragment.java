@@ -19,16 +19,28 @@ public class CatBreedDetailsFragment extends Fragment {
 
     private CatBreedsViewModel viewModel;
 
+    private FragmentCatBreedDetailsBinding binding;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        viewModel = new ViewModelProvider(requireActivity()).get(CatBreedsViewModel.class);
-
-        FragmentCatBreedDetailsBinding binding = DataBindingUtil.inflate(
+        binding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_cat_breed_details, container, false);
-        binding.setViewModel(viewModel);
-
         return binding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        viewModel = new ViewModelProvider(requireActivity()).get(CatBreedsViewModel.class);
+        binding.setViewModel(viewModel);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        viewModel = null;
+        binding = null;
     }
 }
