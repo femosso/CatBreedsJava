@@ -6,8 +6,8 @@ import com.example.catbreeds.R;
 import com.example.catbreeds.models.CatBreed;
 import com.example.catbreeds.models.CatBreedImage;
 import com.example.catbreeds.repository.Repository;
-import com.example.catbreeds.repository.remote.RemoteRepositoryImpl;
-import com.example.catbreeds.ui.CatBreedsAdapter;
+import com.example.catbreeds.repository.remote.retrofit.RetrofitRepositoryImpl;
+import com.example.catbreeds.ui.breeds.CatBreedsAdapter;
 
 import java.util.List;
 
@@ -22,6 +22,7 @@ public class CatBreedsViewModel extends ViewModel {
     private CatBreedsAdapter adapter;
     private MutableLiveData<List<CatBreed>> catBreeds;
     private MutableLiveData<CatBreed> selected;
+    private MutableLiveData<String> wikipedia;
     private Repository repo;
 
     public ObservableArrayMap<String, String> images;
@@ -30,9 +31,10 @@ public class CatBreedsViewModel extends ViewModel {
 
     public void init() {
         this.adapter = new CatBreedsAdapter(R.layout.view_cat_breed, this);
-        this.repo = RemoteRepositoryImpl.getInstance();
+        this.repo = RetrofitRepositoryImpl.getInstance();
         this.catBreeds = this.repo.getBreeds();
         this.selected = new MutableLiveData<>();
+        this.wikipedia = new MutableLiveData<>();
 
         this.images = new ObservableArrayMap<>();
         this.loading = new ObservableBoolean();
@@ -45,6 +47,10 @@ public class CatBreedsViewModel extends ViewModel {
 
     public MutableLiveData<CatBreed> getSelected() {
         return selected;
+    }
+
+    public MutableLiveData<String> getWikipedia() {
+        return wikipedia;
     }
 
     public CatBreed getCatBreedAt(Integer index) {
@@ -85,5 +91,11 @@ public class CatBreedsViewModel extends ViewModel {
 
     public void onItemClick(Integer index) {
         selected.setValue(getCatBreedAt(index));
+    }
+
+    public void onWikipediaItemClick() {
+        if (selected.getValue() != null) {
+            wikipedia.setValue(selected.getValue().getWikipediaUrl());
+        }
     }
 }

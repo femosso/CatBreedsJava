@@ -1,11 +1,9 @@
-package com.example.catbreeds.repository.remote;
-
-import android.util.Log;
+package com.example.catbreeds.repository.remote.retrofit;
 
 import com.example.catbreeds.models.CatBreed;
 import com.example.catbreeds.models.CatBreedImage;
 import com.example.catbreeds.repository.Repository;
-import com.example.catbreeds.repository.remote.retrofit.RetrofitClient;
+import com.example.catbreeds.repository.remote.ApiInterface;
 
 import java.util.List;
 
@@ -14,22 +12,22 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class RemoteRepositoryImpl implements Repository {
+public class RetrofitRepositoryImpl implements Repository {
 
-    private static RemoteRepositoryImpl sInstance;
+    private static RetrofitRepositoryImpl sInstance;
 
     private ApiInterface apiInterface;
     private MutableLiveData<List<CatBreed>> breeds = new MutableLiveData<>();
 
-    public RemoteRepositoryImpl(ApiInterface apiInterface) {
+    public RetrofitRepositoryImpl(ApiInterface apiInterface) {
         this.apiInterface = apiInterface;
     }
 
-    public static RemoteRepositoryImpl getInstance() {
+    public static RetrofitRepositoryImpl getInstance() {
         if (sInstance == null) {
-            synchronized (RemoteRepositoryImpl.class) {
+            synchronized (RetrofitRepositoryImpl.class) {
                 if (sInstance == null) {
-                    sInstance = new RemoteRepositoryImpl(RetrofitClient.getClient().create(ApiInterface.class));
+                    sInstance = new RetrofitRepositoryImpl(RetrofitClient.getClient().create(ApiInterface.class));
                 }
             }
         }

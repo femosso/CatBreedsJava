@@ -3,6 +3,7 @@ package com.example.catbreeds.bindings;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.catbreeds.R;
 
 import androidx.databinding.BindingAdapter;
@@ -20,18 +21,26 @@ public class CustomViewBindings {
     }
 
     @BindingAdapter("imageUrl")
-    public static void bindRecyclerViewAdapter(ImageView imageView, String imageUrl) {
+    public static void bindUrlToCatBreedImageView(ImageView imageView, String imageUrl) {
         if (imageUrl != null) {
             // If we don't do this, you'll see the old image appear briefly
             // before it's replaced with the current image
             if (imageView.getTag(R.id.image_url) == null || !imageView.getTag(R.id.image_url).equals(imageUrl)) {
                 imageView.setImageBitmap(null);
                 imageView.setTag(R.id.image_url, imageUrl);
+                // TODO - add a placeholder using RequestOptions from glide also see how to use diskCacheStrategy
+                // https://stackoverflow.com/questions/56025326/how-to-reuse-a-downloaded-image-in-another-activity
                 Glide.with(imageView).load(imageUrl).into(imageView);
             }
         } else {
             imageView.setTag(R.id.image_url, null);
             imageView.setImageBitmap(null);
         }
+    }
+
+    @BindingAdapter("flagUrl")
+    public static void bindUrlToFlagImageView(ImageView imageView, String countryCode) {
+        String url = String.format("https://www.countryflags.io/%s/shiny/64.png", countryCode);
+        Glide.with(imageView).load(url).into(imageView);
     }
 }

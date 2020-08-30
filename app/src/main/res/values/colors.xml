@@ -5,4 +5,9 @@
     <color name="colorAccent">#03DAC5</color>
     <color name="white">#ffffff</color>
     <color name="transparentBlack">#80000000</color>
+
+
+    <color name="primaryColor">#ffca28</color>
+    <color name="primaryLightColor">#fffd61</color>
+    <color name="primaryDarkColor">#c8a415</color>
 </resources>

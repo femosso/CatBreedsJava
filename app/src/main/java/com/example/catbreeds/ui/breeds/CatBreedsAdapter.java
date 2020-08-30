@@ -1,4 +1,4 @@
-package com.example.catbreeds.ui;
+package com.example.catbreeds.ui.breeds;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
