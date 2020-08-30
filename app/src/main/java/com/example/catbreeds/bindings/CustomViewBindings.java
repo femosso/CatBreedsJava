@@ -1,5 +1,6 @@
 package com.example.catbreeds.bindings;
 
+import android.text.TextUtils;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -10,7 +11,6 @@ import androidx.databinding.BindingAdapter;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-// TODO - check if this is the best place to add this file
 public class CustomViewBindings {
 
     @BindingAdapter("setAdapter")
@@ -23,14 +23,14 @@ public class CustomViewBindings {
     @BindingAdapter("imageUrl")
     public static void bindUrlToCatBreedImageView(ImageView imageView, String imageUrl) {
         if (imageUrl != null) {
-            // If we don't do this, you'll see the old image appear briefly
-            // before it's replaced with the current image
+            // avoid old images appearing briefly before it's replaced with the current image
             if (imageView.getTag(R.id.image_url) == null || !imageView.getTag(R.id.image_url).equals(imageUrl)) {
                 imageView.setImageBitmap(null);
                 imageView.setTag(R.id.image_url, imageUrl);
-                // TODO - add a placeholder using RequestOptions from glide also see how to use diskCacheStrategy
-                // https://stackoverflow.com/questions/56025326/how-to-reuse-a-downloaded-image-in-another-activity
-                Glide.with(imageView).load(imageUrl).into(imageView);
+                Glide.with(imageView)
+                        .load(imageUrl)
+                        .apply(new RequestOptions().placeholder(R.drawable.placeholder))
+                        .into(imageView);
             }
         } else {
             imageView.setTag(R.id.image_url, null);
@@ -40,7 +40,10 @@ public class CustomViewBindings {
 
     @BindingAdapter("flagUrl")
     public static void bindUrlToFlagImageView(ImageView imageView, String countryCode) {
-        String url = String.format("https://www.countryflags.io/%s/shiny/64.png", countryCode);
-        Glide.with(imageView).load(url).into(imageView);
+        if (!TextUtils.isEmpty(countryCode)) {
+            Glide.with(imageView)
+                    .load(String.format("https://www.countryflags.io/%s/shiny/64.png", countryCode))
+                    .into(imageView);
+        }
     }
 }

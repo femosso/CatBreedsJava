@@ -34,6 +34,7 @@
                 android:id="@+id/breedImage"
                 android:layout_width="300dp"
                 android:layout_height="300dp"
+                android:contentDescription="@string/cat_breed_image_desc"
                 app:imageUrl="@{viewModel.images[viewModel.selected.id]}"
                 tools:src="@tools:sample/avatars" />
 
@@ -64,6 +65,7 @@
                 <ImageView
                     android:layout_width="40dp"
                     android:layout_height="40dp"
+                    android:contentDescription="@string/cat_breed_country_desc"
                     android:scaleType="centerCrop"
                     app:flagUrl="@{viewModel.selected.countryCode}"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -92,10 +94,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:numStars="5"
-                    android:progressBackgroundTint="@color/primaryLightColor"
-                    android:progressTint="@color/primaryColor"
+                    android:progressBackgroundTint="@color/ratingBarLightColor"
+                    android:progressTint="@color/ratingBarColor"
                     android:rating="@{viewModel.selected.energyLevel}"
-                    android:secondaryProgressTint="@color/primaryColor"
+                    android:secondaryProgressTint="@color/ratingBarColor"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -120,10 +122,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:numStars="5"
-                    android:progressBackgroundTint="@color/primaryLightColor"
-                    android:progressTint="@color/primaryColor"
+                    android:progressBackgroundTint="@color/ratingBarLightColor"
+                    android:progressTint="@color/ratingBarColor"
                     android:rating="@{viewModel.selected.dogFriendly}"
-                    android:secondaryProgressTint="@color/primaryColor"
+                    android:secondaryProgressTint="@color/ratingBarColor"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -148,10 +150,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:numStars="5"
-                    android:progressBackgroundTint="@color/primaryLightColor"
-                    android:progressTint="@color/primaryColor"
+                    android:progressBackgroundTint="@color/ratingBarLightColor"
+                    android:progressTint="@color/ratingBarColor"
                     android:rating="@{viewModel.selected.healthIssues}"
-                    android:secondaryProgressTint="@color/primaryColor"
+                    android:secondaryProgressTint="@color/ratingBarColor"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />

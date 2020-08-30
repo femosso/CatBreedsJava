@@ -13,8 +13,11 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static com.example.catbreeds.repository.remote.ApiConfig.AUTH_HEADER_KEY;
+import static com.example.catbreeds.repository.remote.ApiConfig.AUTH_HEADER_VALUE;
+import static com.example.catbreeds.repository.remote.ApiConfig.BASE_URL;
+
 public class RetrofitClient {
-    private static final String BASE_URL = "https://api.thecatapi.com";
 
     private static Retrofit retrofit = null;
     private static Gson gson = new GsonBuilder().create();
@@ -29,8 +32,7 @@ public class RetrofitClient {
                         @Override
                         public Response intercept(Chain chain) throws IOException {
                             Request.Builder requestBuilder = chain.request().newBuilder();
-                            // TODO - add it to string files to avoid hardcoding
-                            requestBuilder.header("x-api-key", "5906c13a-590c-4a4e-adf8-387e369fe4d6");
+                            requestBuilder.header(AUTH_HEADER_KEY, AUTH_HEADER_VALUE);
                             return chain.proceed(requestBuilder.build());
                         }
                     })

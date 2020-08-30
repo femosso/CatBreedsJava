@@ -38,9 +38,10 @@
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:contentDescription="@string/cat_breed_image_desc"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/ic_launcher_background"
-                    app:imageUrl="@{viewModel.images[viewModel.getCatBreedAt(position).id]}" />
+                    app:imageUrl="@{viewModel.images[viewModel.getCatBreedAt(position).id]}"
+                    tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
                 <TextView
                     android:layout_width="match_parent"

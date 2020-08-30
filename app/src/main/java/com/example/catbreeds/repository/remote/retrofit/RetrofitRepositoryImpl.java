@@ -17,6 +17,7 @@ public class RetrofitRepositoryImpl implements Repository {
     private static RetrofitRepositoryImpl sInstance;
 
     private ApiInterface apiInterface;
+
     private MutableLiveData<List<CatBreed>> breeds = new MutableLiveData<>();
 
     public RetrofitRepositoryImpl(ApiInterface apiInterface) {
@@ -27,7 +28,8 @@ public class RetrofitRepositoryImpl implements Repository {
         if (sInstance == null) {
             synchronized (RetrofitRepositoryImpl.class) {
                 if (sInstance == null) {
-                    sInstance = new RetrofitRepositoryImpl(RetrofitClient.getClient().create(ApiInterface.class));
+                    sInstance = new RetrofitRepositoryImpl(
+                            RetrofitClient.getClient().create(ApiInterface.class));
                 }
             }
         }
@@ -43,7 +45,8 @@ public class RetrofitRepositoryImpl implements Repository {
     public void fetchList() {
         Callback<List<CatBreed>> retrofitCallback = new Callback<List<CatBreed>>() {
             @Override
-            public void onResponse(Call<List<CatBreed>> call, Response<List<CatBreed>> response) {
+            public void onResponse(Call<List<CatBreed>> call,
+                                   Response<List<CatBreed>> response) {
                 List<CatBreed> body = response.body();
                 breeds.setValue(body);
             }
@@ -61,7 +64,8 @@ public class RetrofitRepositoryImpl implements Repository {
     public void fetchImage(String breedId, final FetchImageCallback<CatBreedImage> callback) {
         Callback<List<CatBreedImage>> retrofitCallback = new Callback<List<CatBreedImage>>() {
             @Override
-            public void onResponse(Call<List<CatBreedImage>> call, Response<List<CatBreedImage>> response) {
+            public void onResponse(Call<List<CatBreedImage>> call,
+                                   Response<List<CatBreedImage>> response) {
                 List<CatBreedImage> body = response.body();
                 if (response.code() == 200 && body.size() > 0) {
                     callback.onLoaded(body.get(0));

@@ -22,7 +22,6 @@ public class CatBreedsViewModel extends ViewModel {
     private CatBreedsAdapter adapter;
     private MutableLiveData<List<CatBreed>> catBreeds;
     private MutableLiveData<CatBreed> selected;
-    private MutableLiveData<String> wikipedia;
     private Repository repo;
 
     public ObservableArrayMap<String, String> images;
@@ -34,8 +33,6 @@ public class CatBreedsViewModel extends ViewModel {
         this.repo = RetrofitRepositoryImpl.getInstance();
         this.catBreeds = this.repo.getBreeds();
         this.selected = new MutableLiveData<>();
-        this.wikipedia = new MutableLiveData<>();
-
         this.images = new ObservableArrayMap<>();
         this.loading = new ObservableBoolean();
         this.showEmpty = new ObservableInt(View.GONE);
@@ -47,10 +44,6 @@ public class CatBreedsViewModel extends ViewModel {
 
     public MutableLiveData<CatBreed> getSelected() {
         return selected;
-    }
-
-    public MutableLiveData<String> getWikipedia() {
-        return wikipedia;
     }
 
     public CatBreed getCatBreedAt(Integer index) {
@@ -77,25 +70,20 @@ public class CatBreedsViewModel extends ViewModel {
     public void fetchCatBreedImageAt(Integer index) {
         final CatBreed catBreed = getCatBreedAt(index);
         if (catBreed != null && !images.containsKey(catBreed.getId())) {
-            this.repo.fetchImage(catBreed.getId(), new Repository.FetchImageCallback<CatBreedImage>() {
-                @Override
-                public void onLoaded(CatBreedImage data) {
-                    if (data != null) {
-                        String thumbnailUrl = data.getUrl();
-                        images.put(catBreed.getId(), thumbnailUrl);
-                    }
-                }
-            });
+            this.repo.fetchImage(catBreed.getId(),
+                    new Repository.FetchImageCallback<CatBreedImage>() {
+                        @Override
+                        public void onLoaded(CatBreedImage data) {
+                            if (data != null) {
+                                String thumbnailUrl = data.getUrl();
+                                images.put(catBreed.getId(), thumbnailUrl);
+                            }
+                        }
+                    });
         }
     }
 
     public void onItemClick(Integer index) {
         selected.setValue(getCatBreedAt(index));
-    }
-
-    public void onWikipediaItemClick() {
-        if (selected.getValue() != null) {
-            wikipedia.setValue(selected.getValue().getWikipediaUrl());
-        }
     }
 }

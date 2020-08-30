@@ -6,10 +6,6 @@ public class CatBreedImage extends BaseObservable {
 
     private String url;
 
-    public CatBreedImage(String url) {
-        this.url = url;
-    }
-
     public String getUrl() {
         return url;
     }

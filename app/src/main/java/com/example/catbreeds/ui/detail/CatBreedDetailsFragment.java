@@ -24,7 +24,9 @@ public class CatBreedDetailsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         viewModel = new ViewModelProvider(requireActivity()).get(CatBreedsViewModel.class);
-        FragmentCatBreedDetailsBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_cat_breed_details, container, false);
+
+        FragmentCatBreedDetailsBinding binding = DataBindingUtil.inflate(
+                inflater, R.layout.fragment_cat_breed_details, container, false);
         binding.setViewModel(viewModel);
 
         return binding.getRoot();
