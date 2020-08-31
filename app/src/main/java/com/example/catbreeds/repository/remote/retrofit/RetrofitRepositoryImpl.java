@@ -7,7 +7,6 @@ import com.example.catbreeds.repository.remote.ApiInterface;
 
 import java.util.List;
 
-import androidx.lifecycle.MutableLiveData;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -17,8 +16,6 @@ public class RetrofitRepositoryImpl implements Repository {
     private static RetrofitRepositoryImpl sInstance;
 
     private ApiInterface apiInterface;
-
-    private MutableLiveData<List<CatBreed>> breeds = new MutableLiveData<>();
 
     public RetrofitRepositoryImpl(ApiInterface apiInterface) {
         this.apiInterface = apiInterface;
@@ -37,23 +34,22 @@ public class RetrofitRepositoryImpl implements Repository {
     }
 
     @Override
-    public MutableLiveData<List<CatBreed>> getBreeds() {
-        return breeds;
-    }
-
-    @Override
-    public void fetchList() {
+    public void fetchList(final FetchDataCallback<List<CatBreed>> callback) {
         Callback<List<CatBreed>> retrofitCallback = new Callback<List<CatBreed>>() {
             @Override
             public void onResponse(Call<List<CatBreed>> call,
                                    Response<List<CatBreed>> response) {
                 List<CatBreed> body = response.body();
-                breeds.setValue(body);
+                if (response.code() == 200 && body.size() > 0) {
+                    callback.onLoaded(body);
+                } else {
+                    callback.onLoaded(null);
+                }
             }
 
             @Override
             public void onFailure(Call<List<CatBreed>> call, Throwable t) {
-                breeds.setValue(null);
+                callback.onLoaded(null);
             }
         };
 
@@ -61,7 +57,7 @@ public class RetrofitRepositoryImpl implements Repository {
     }
 
     @Override
-    public void fetchImage(String breedId, final FetchImageCallback<CatBreedImage> callback) {
+    public void fetchImage(String breedId, final FetchDataCallback<CatBreedImage> callback) {
         Callback<List<CatBreedImage>> retrofitCallback = new Callback<List<CatBreedImage>>() {
             @Override
             public void onResponse(Call<List<CatBreedImage>> call,

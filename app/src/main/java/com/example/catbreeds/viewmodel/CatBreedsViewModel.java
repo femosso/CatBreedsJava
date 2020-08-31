@@ -6,11 +6,12 @@ import com.example.catbreeds.R;
 import com.example.catbreeds.models.CatBreed;
 import com.example.catbreeds.models.CatBreedImage;
 import com.example.catbreeds.repository.Repository;
-import com.example.catbreeds.repository.remote.retrofit.RetrofitRepositoryImpl;
 import com.example.catbreeds.ui.breeds.CatBreedsAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
 
 import androidx.databinding.ObservableArrayMap;
 import androidx.databinding.ObservableBoolean;
@@ -22,7 +23,7 @@ public class CatBreedsViewModel extends ViewModel {
 
     private CatBreedsAdapter adapter;
 
-    private Repository repo;
+    private Repository repository;
 
     private MutableLiveData<List<CatBreed>> catBreeds;
     private MutableLiveData<CatBreed> selected;
@@ -31,13 +32,14 @@ public class CatBreedsViewModel extends ViewModel {
     public ObservableBoolean loading;
     public ObservableInt showEmpty;
 
-    public CatBreedsViewModel() {
-        adapter = new CatBreedsAdapter(R.layout.view_cat_breed, this);
-        repo = RetrofitRepositoryImpl.getInstance();
-        catBreeds = repo.getBreeds();
-        images = new ObservableArrayMap<>();
-        loading = new ObservableBoolean();
-        showEmpty = new ObservableInt(View.GONE);
+    @Inject
+    public CatBreedsViewModel(Repository repository) {
+        this.repository = repository;
+        this.adapter = new CatBreedsAdapter(R.layout.view_cat_breed, this);
+        this.catBreeds = new MutableLiveData<>();
+        this.images = new ObservableArrayMap<>();
+        this.loading = new ObservableBoolean();
+        this.showEmpty = new ObservableInt(View.GONE);
     }
 
     public MutableLiveData<List<CatBreed>> getCatBreeds() {
@@ -77,15 +79,23 @@ public class CatBreedsViewModel extends ViewModel {
         if (force) {
             invalidateImageCache();
         }
+
         loading.set(true);
-        repo.fetchList();
+        repository.fetchList(new Repository.FetchDataCallback<List<CatBreed>>() {
+            @Override
+            public void onLoaded(List<CatBreed> data) {
+                if (data != null) {
+                    catBreeds.setValue(data);
+                }
+            }
+        });
     }
 
     public void fetchCatBreedImageAt(Integer index) {
         final CatBreed catBreed = getCatBreedAt(index);
         if (catBreed != null && !images.containsKey(catBreed.getId())) {
-            repo.fetchImage(catBreed.getId(),
-                    new Repository.FetchImageCallback<CatBreedImage>() {
+            repository.fetchImage(catBreed.getId(),
+                    new Repository.FetchDataCallback<CatBreedImage>() {
                         @Override
                         public void onLoaded(CatBreedImage data) {
                             if (data != null) {
