@@ -1,7 +1,9 @@
 package com.example.catbreeds.bindings;
 
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -47,5 +49,10 @@ public class CustomViewBindings {
                     .load(String.format("https://www.countryflags.io/%s/shiny/64.png", countryCode))
                     .into(imageView);
         }
+    }
+
+    @BindingAdapter("setVisibility")
+    public static void bindVisibilityToTextView(TextView textView, Boolean value) {
+        textView.setVisibility(value ? View.VISIBLE : View.GONE);
     }
 }

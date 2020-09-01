@@ -12,7 +12,6 @@ import com.example.catbreeds.models.CatBreed;
 import com.example.catbreeds.viewmodel.CatBreedsViewModel;
 import com.example.catbreeds.viewmodel.CatBreedsViewModelFactory;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -25,7 +24,6 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavDirections;
 import androidx.navigation.fragment.NavHostFragment;
-import dagger.android.AndroidInjection;
 import dagger.android.support.AndroidSupportInjection;
 
 public class CatBreedsFragment extends Fragment {
@@ -76,7 +74,7 @@ public class CatBreedsFragment extends Fragment {
     }
 
     public void refreshList() {
-        viewModel.showEmpty.set(View.GONE);
+        viewModel.showEmpty.set(false);
         viewModel.fetchList(false);
     }
 
@@ -86,10 +84,10 @@ public class CatBreedsFragment extends Fragment {
             public void onChanged(List<CatBreed> catBreeds) {
                 viewModel.loading.set(false);
                 if (catBreeds == null || catBreeds.size() == 0) {
-                    viewModel.showEmpty.set(View.VISIBLE);
+                    viewModel.showEmpty.set(true);
                     viewModel.clearCatBreedsInAdapter();
                 } else {
-                    viewModel.showEmpty.set(View.GONE);
+                    viewModel.showEmpty.set(false);
                     viewModel.setCatBreedsInAdapter(catBreeds);
                 }
             }

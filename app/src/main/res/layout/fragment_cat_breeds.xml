@@ -39,7 +39,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="@string/no_breeds_returned"
-                    android:visibility="@{viewModel.showEmpty}" />
+                    app:setVisibility="@{viewModel.showEmpty}" />
             </FrameLayout>
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
     </LinearLayout>

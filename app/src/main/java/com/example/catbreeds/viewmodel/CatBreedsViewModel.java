@@ -1,7 +1,5 @@
 package com.example.catbreeds.viewmodel;
 
-import android.view.View;
-
 import com.example.catbreeds.R;
 import com.example.catbreeds.models.CatBreed;
 import com.example.catbreeds.models.CatBreedImage;
@@ -15,7 +13,6 @@ import javax.inject.Inject;
 
 import androidx.databinding.ObservableArrayMap;
 import androidx.databinding.ObservableBoolean;
-import androidx.databinding.ObservableInt;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -30,7 +27,7 @@ public class CatBreedsViewModel extends ViewModel {
 
     public ObservableArrayMap<String, String> images;
     public ObservableBoolean loading;
-    public ObservableInt showEmpty;
+    public ObservableBoolean showEmpty;
 
     @Inject
     public CatBreedsViewModel(Repository repository) {
@@ -39,7 +36,7 @@ public class CatBreedsViewModel extends ViewModel {
         this.catBreeds = new MutableLiveData<>();
         this.images = new ObservableArrayMap<>();
         this.loading = new ObservableBoolean();
-        this.showEmpty = new ObservableInt(View.GONE);
+        this.showEmpty = new ObservableBoolean();
     }
 
     public MutableLiveData<List<CatBreed>> getCatBreeds() {
@@ -84,9 +81,7 @@ public class CatBreedsViewModel extends ViewModel {
         repository.fetchList(new Repository.FetchDataCallback<List<CatBreed>>() {
             @Override
             public void onLoaded(List<CatBreed> data) {
-                if (data != null) {
-                    catBreeds.setValue(data);
-                }
+                catBreeds.setValue(data);
             }
         });
     }
