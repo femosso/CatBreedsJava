@@ -1,7 +1,9 @@
 # CatBreedsJava
 
-<img align="right" src="https://github.com/femosso/CatBreedsKotlin/raw/master/assets/cat_breeds.jpg" width="200">
-<img align="right" src="https://github.com/femosso/CatBreedsKotlin/raw/master/assets/breed_detail.jpg" width="200">
+<p>
+  <img align="right" src="https://raw.githubusercontent.com/femosso/CatBreedsJava/master/screenshots/cat_breeds.jpg" width="200" />
+  <img align="right" src="https://raw.githubusercontent.com/femosso/CatBreedsJava/master/screenshots/breed_detail.jpg" width="200" /> 
+</p>
 
 - MVVM architecture
 - LiveData
