@@ -1,4 +1,4 @@
-package com.example.catbreeds.viewmodel;
+package com.example.catbreeds.ui.viewmodel;
 
 import java.util.Map;
 

@@ -1,9 +1,9 @@
-package com.example.catbreeds.viewmodel;
+package com.example.catbreeds.ui.viewmodel;
 
 import com.example.catbreeds.R;
-import com.example.catbreeds.models.CatBreed;
-import com.example.catbreeds.models.CatBreedImage;
-import com.example.catbreeds.repository.Repository;
+import com.example.catbreeds.data.model.CatBreed;
+import com.example.catbreeds.data.model.CatBreedImage;
+import com.example.catbreeds.data.repository.Repository;
 import com.example.catbreeds.ui.breeds.CatBreedsAdapter;
 
 import java.util.ArrayList;

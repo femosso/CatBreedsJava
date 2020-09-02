@@ -11,7 +11,7 @@
 
         <variable
             name="viewModel"
-            type="com.example.catbreeds.viewmodel.CatBreedsViewModel" />
+            type="com.example.catbreeds.ui.viewmodel.CatBreedsViewModel" />
     </data>
 
     <LinearLayout

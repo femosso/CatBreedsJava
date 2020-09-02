@@ -8,8 +8,8 @@ import android.view.ViewGroup;
 
 import com.example.catbreeds.R;
 import com.example.catbreeds.databinding.FragmentCatBreedDetailsBinding;
-import com.example.catbreeds.viewmodel.CatBreedsViewModel;
-import com.example.catbreeds.viewmodel.CatBreedsViewModelFactory;
+import com.example.catbreeds.ui.viewmodel.CatBreedsViewModel;
+import com.example.catbreeds.ui.viewmodel.CatBreedsViewModelFactory;
 
 import javax.inject.Inject;
 

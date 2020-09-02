@@ -10,8 +10,8 @@ import dagger.android.ContributesAndroidInjector;
 public abstract class FragmentBindingModule {
 
     @ContributesAndroidInjector()
-    abstract CatBreedsFragment bindBreedsFragment();
+    abstract CatBreedsFragment bindCatBreedsFragment();
 
     @ContributesAndroidInjector()
-    abstract CatBreedDetailsFragment binBreedDetailsFragment();
+    abstract CatBreedDetailsFragment bindCatBreedDetailsFragment();
 }

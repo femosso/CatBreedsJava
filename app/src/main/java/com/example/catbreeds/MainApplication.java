@@ -11,7 +11,7 @@ import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.support.HasSupportFragmentInjector;
 
-public class CatBreedsApp extends Application implements HasSupportFragmentInjector {
+public class MainApplication extends Application implements HasSupportFragmentInjector {
 
     @Inject
     DispatchingAndroidInjector<Fragment> activityDispatchingAndroidInjector;

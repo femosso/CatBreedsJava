@@ -1,4 +1,4 @@
-package com.example.catbreeds.repository.remote;
+package com.example.catbreeds.data.repository.remote;
 
 public class ApiConfig {
 

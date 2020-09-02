@@ -1,8 +1,8 @@
 package com.example.catbreeds.di.module;
 
 import com.example.catbreeds.di.scope.AppScope;
-import com.example.catbreeds.repository.Repository;
-import com.example.catbreeds.repository.remote.retrofit.RetrofitRepositoryImpl;
+import com.example.catbreeds.data.repository.Repository;
+import com.example.catbreeds.data.repository.remote.RetrofitRepositoryImpl;
 
 import dagger.Module;
 import dagger.Provides;

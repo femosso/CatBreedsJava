@@ -1,8 +1,8 @@
 package com.example.catbreeds.di.module;
 
 import com.example.catbreeds.di.scope.ViewModelKey;
-import com.example.catbreeds.viewmodel.CatBreedsViewModel;
-import com.example.catbreeds.viewmodel.CatBreedsViewModelFactory;
+import com.example.catbreeds.ui.viewmodel.CatBreedsViewModel;
+import com.example.catbreeds.ui.viewmodel.CatBreedsViewModelFactory;
 
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;

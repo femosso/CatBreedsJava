@@ -1,7 +1,7 @@
-package com.example.catbreeds.repository.remote;
+package com.example.catbreeds.data.repository.remote;
 
-import com.example.catbreeds.models.CatBreed;
-import com.example.catbreeds.models.CatBreedImage;
+import com.example.catbreeds.data.model.CatBreed;
+import com.example.catbreeds.data.model.CatBreedImage;
 
 import java.util.List;
 

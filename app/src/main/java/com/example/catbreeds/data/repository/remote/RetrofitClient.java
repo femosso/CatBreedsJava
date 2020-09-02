@@ -1,4 +1,4 @@
-package com.example.catbreeds.repository.remote.retrofit;
+package com.example.catbreeds.data.repository.remote;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -9,13 +9,12 @@ import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import static com.example.catbreeds.repository.remote.ApiConfig.AUTH_HEADER_KEY;
-import static com.example.catbreeds.repository.remote.ApiConfig.AUTH_HEADER_VALUE;
-import static com.example.catbreeds.repository.remote.ApiConfig.BASE_URL;
+import static com.example.catbreeds.data.repository.remote.ApiConfig.AUTH_HEADER_KEY;
+import static com.example.catbreeds.data.repository.remote.ApiConfig.AUTH_HEADER_VALUE;
+import static com.example.catbreeds.data.repository.remote.ApiConfig.BASE_URL;
 
 public class RetrofitClient {
 
@@ -24,10 +23,7 @@ public class RetrofitClient {
 
     public static Retrofit getClient() {
         if (retrofit == null) {
-            HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-            logging.setLevel(HttpLoggingInterceptor.Level.BASIC);
             OkHttpClient client = new OkHttpClient.Builder()
-                    .addInterceptor(logging)
                     .addNetworkInterceptor(new Interceptor() {
                         @Override
                         public Response intercept(Chain chain) throws IOException {

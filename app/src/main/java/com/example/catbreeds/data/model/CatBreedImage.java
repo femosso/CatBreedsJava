@@ -1,4 +1,4 @@
-package com.example.catbreeds.models;
+package com.example.catbreeds.data.model;
 
 import androidx.databinding.BaseObservable;
 

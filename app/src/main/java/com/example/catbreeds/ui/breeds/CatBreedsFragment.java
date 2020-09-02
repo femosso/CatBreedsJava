@@ -8,9 +8,9 @@ import android.view.ViewGroup;
 
 import com.example.catbreeds.R;
 import com.example.catbreeds.databinding.FragmentCatBreedsBinding;
-import com.example.catbreeds.models.CatBreed;
-import com.example.catbreeds.viewmodel.CatBreedsViewModel;
-import com.example.catbreeds.viewmodel.CatBreedsViewModelFactory;
+import com.example.catbreeds.data.model.CatBreed;
+import com.example.catbreeds.ui.viewmodel.CatBreedsViewModel;
+import com.example.catbreeds.ui.viewmodel.CatBreedsViewModelFactory;
 
 import java.util.List;
 
@@ -96,8 +96,8 @@ public class CatBreedsFragment extends Fragment {
         viewModel.getSelected().observe(getViewLifecycleOwner(), new Observer<CatBreed>() {
             @Override
             public void onChanged(CatBreed catBreed) {
-                NavDirections navDir =
-                        CatBreedsFragmentDirections.actionFirstFragmentToSecondFragment();
+                NavDirections navDir = CatBreedsFragmentDirections
+                        .actionCatBreedsFragmentToCatBreedDetailsFragment();
                 NavHostFragment.findNavController(CatBreedsFragment.this).navigate(navDir);
             }
         });
